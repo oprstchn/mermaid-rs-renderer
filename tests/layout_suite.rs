@@ -53,6 +53,7 @@ fn render_all_fixtures() {
         "sankey/basic.mmd",
         "sequence/basic.mmd",
         "sequence/frames.mmd",
+        "sequence/nested_alt.mmd",
         "state/basic.mmd",
         "state/note.mmd",
         "timeline/basic.mmd",

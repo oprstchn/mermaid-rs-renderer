@@ -379,12 +379,14 @@ pub(super) fn compute_sequence_layout(
                         let min_x = frame_x + block.width / 2.0 + theme.font_size * 0.4;
                         let max_x =
                             frame_x + frame_width - block.width / 2.0 - theme.font_size * 0.4;
-                        preferred.clamp(min_x, max_x)
+                        // When the label is wider than the frame, min_x > max_x;
+                        // fall back to the midpoint to avoid a clamp panic.
+                        if min_x <= max_x { preferred.clamp(min_x, max_x) } else { (min_x + max_x) / 2.0 }
                     } else {
                         let preferred = frame_x + side_pad + block.width / 2.0;
                         let min_x = frame_x + block.width / 2.0 + side_pad;
                         let max_x = frame_x + frame_width - block.width / 2.0 - side_pad;
-                        preferred.clamp(min_x, max_x)
+                        if min_x <= max_x { preferred.clamp(min_x, max_x) } else { (min_x + max_x) / 2.0 }
                     };
                     section_labels.push(SequenceLabel {
                         x: label_x,
